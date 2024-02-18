@@ -48,9 +48,34 @@ class UpdatesController extends Controller
     /**
      * Don't use whereIn().Use whereIntegerInRow() faster by 90%
      */
-    public function useWhereIntegerInRow() 
+    public function useWhereIntegerInRaw() 
     {
-        $users = User::whereIn('id', range(1,10000))->get();
+        /**
+         *  26MB, 350-400ms
+         */
+        // $users = User::whereIn('id', range(1,5000))->get();
+
+        /**
+         *  25MB, 250-290ms
+         */
+        // $users = User::whereIntegerInRaw('id', range(1,5000))->get();
+
+        /**
+         *  24MB, 240-270ms
+         */
+        // $users = User::select('name','email','created_at', 'updated_at')
+        //             ->whereIntegerInRaw('id', range(1,5000))->get();
+
+        /**
+         *  25MB, 240-260ms
+         */
+        // $users = User::find(range(1,5000));
+
+        /**
+         *  24MB, 240-250ms
+         */
+        $users = User::select('name','email','created_at', 'updated_at')
+                    ->find(range(1,5000)); 
 
         return view('user.index', compact('users'));
     }

@@ -36,7 +36,7 @@ Route::group([
         ->middleware('auth')
         ->group(static function (): void {
             Route::get('http-pool', 'httpPool');
-            Route::get('where-integer-in-row', 'useWhereIntegerInRow')->name('user');
+            Route::get('where-integer-in-row', 'useWhereIntegerInRaw')->name('user');
         });
 });
 

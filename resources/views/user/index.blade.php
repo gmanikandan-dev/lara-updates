@@ -6,10 +6,11 @@
               <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead>
                   <tr>
-                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Name</th>
-                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Email</th>
-                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Created Date</th>
-                    <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Updated Date</th>
+                    <th scope="col" class="px-6 py-3 text-start text-sm font-semibold text-gray-800 uppercase">Name</th>
+                    <th scope="col" class="px-6 py-3 text-start text-sm font-semibold text-gray-800 uppercase">Email</th>
+                    <th scope="col" class="px-6 py-3 text-start text-sm font-semibold text-gray-800 uppercase">Created Date</th>
+                    <th scope="col" class="px-6 py-3 text-start text-sm font-semibold text-gray-800 uppercase">Updated Date</th>
+                    <th scope="col" class="px-6 py-3 text-end text-sm font-semibold text-gray-800 uppercase">Action</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
