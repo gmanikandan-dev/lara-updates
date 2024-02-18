@@ -9,6 +9,9 @@ class UpdatesController extends Controller
 {
     public function httpPool()
     {
+        /**
+         * Starts Http Get
+         **/
         $startHttpGet = now();
         $urls = [
             'https://reqres.in/api/users/2',
@@ -20,8 +23,11 @@ class UpdatesController extends Controller
             dump($httpGetResponse->json());
         }
 
-        dump(now()->diffInMilliseconds($startHttpGet));
+        dump('httpGetResponse : '.now()->diffInMilliseconds($startHttpGet).'ms');
 
+        /**
+         * Starts Http Pool
+         **/
         $startHttpPool = now();
         $httpPoolResponses = Http::pool(fn (Pool $pool) => [
             $pool->get('https://reqres.in/api/users/2'),
@@ -32,6 +38,6 @@ class UpdatesController extends Controller
         foreach ($httpPoolResponses as $response) {
             dump($response->json());
         }
-        dump(now()->diffInMilliseconds($startHttpPool), $httpPoolResponses);
+        dump('httpPoolResponses : '.now()->diffInMilliseconds($startHttpPool).'ms');
     }
 }
