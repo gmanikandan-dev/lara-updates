@@ -1,7 +1,6 @@
 <?php
 
-use Illuminate\Http\Client\Pool;
-use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\UpdatesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,29 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/http-pool', function () {
-    $startHttpGet = now();
-    $urls = [
-        'https://reqres.in/api/users/2',
-        'https://reqres.in/api/users/3',
-        'https://reqres.in/api/users/4',
-    ];
-    foreach ($urls as $url) {
-        $httpGetResponse = Http::get($url);
-        dump($httpGetResponse->json());
-    }
-
-    dump(now()->diffInMilliseconds($startHttpGet));
-
-    $startHttpPool = now();
-    $httpPoolResponses = Http::pool(fn (Pool $pool) => [
-        $pool->get('https://reqres.in/api/users/2'),
-        $pool->get('https://reqres.in/api/users/3'),
-        $pool->get('https://reqres.in/api/users/4'),
-    ]);
-
-    foreach ($httpPoolResponses as $response) {
-        dump($response->json());
-    }
-    dump(now()->diffInMilliseconds($startHttpPool), $httpPoolResponses);
+Route::group([
+    'prefix' => 'v1',
+], static function (): void {
+    Route::controller(UpdatesController::class)
+        ->group(static function (): void {
+            Route::get('http-pool', 'httpPool');
+        });
 });
