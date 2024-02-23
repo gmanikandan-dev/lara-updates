@@ -6,8 +6,16 @@ use App\Models\User;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Support\Facades\Http;
 
-class UpdatesController extends Controller
+class UpdateController extends Controller
 {
+    public function index()
+    {
+        $users = User::select('name', 'email', 'created_at', 'updated_at')
+            ->get();
+
+        return view('user.index', compact('users'));
+    }
+
     /**
      * Http pool fater by 50%
      */
@@ -48,7 +56,7 @@ class UpdatesController extends Controller
     /**
      * Don't use whereIn().Use whereIntegerInRow() faster by 90%
      */
-    public function useWhereIntegerInRaw() 
+    public function useWhereIntegerInRaw()
     {
         /**
          *  26MB, 350-400ms
@@ -74,9 +82,26 @@ class UpdatesController extends Controller
         /**
          *  24MB, 240-250ms
          */
-        $users = User::select('name','email','created_at', 'updated_at')
-                    ->find(range(1,5000)); 
+        $users = User::select('name', 'email', 'created_at', 'updated_at')
+            // ->find(range(1, 5000));
+                ->get();
 
         return view('user.index', compact('users'));
+    }
+
+    /**
+     * Use chunkById() intead of chunk()
+     */
+    public function useChunkById()
+    {
+        User::whereNull('email_verified_at')
+            ->chunk(2, function ($users) {
+                foreach ($users as $user) {
+                    $user->email_verified_at = now();
+                    $user->save();
+                }
+            });
+
+        return redirect('user');
     }
 }

@@ -1,34 +1,46 @@
 <x-app-layout>
-    <div class="flex flex-col">
-        <div class="m-1.5 overflow-x-auto">
-          <div class="p-1.5 min-w-full inline-block align-middle">
-            <div class="border rounded-lg overflow-hidden dark:border-gray-700">
-              <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead>
-                  <tr>
-                    <th scope="col" class="px-6 py-3 text-start text-sm font-semibold text-gray-800 uppercase">Name</th>
-                    <th scope="col" class="px-6 py-3 text-start text-sm font-semibold text-gray-800 uppercase">Email</th>
-                    <th scope="col" class="px-6 py-3 text-start text-sm font-semibold text-gray-800 uppercase">Created Date</th>
-                    <th scope="col" class="px-6 py-3 text-start text-sm font-semibold text-gray-800 uppercase">Updated Date</th>
-                    <th scope="col" class="px-6 py-3 text-end text-sm font-semibold text-gray-800 uppercase">Action</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                  @foreach($users as $user)
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ $user->name }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ $user->email }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ $user->created_at }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ $user->updated_at }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                      <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Delete</button>
-                    </td>
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Email
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Created at
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Updated at
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+          @foreach($users as $user)
+            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ $user->name }}
+                </th>
+                <td class="px-6 py-4">
+                  {{ $user->email }}
+                </td>
+                <td class="px-6 py-4">
+                  {{ $user->created_at }}
+                </td>
+                <td class="px-6 py-4">
+                  {{ $user->updated_at }}
+                </td>
+                <td class="px-6 py-4">
+                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
+                </td>
+            </tr>
+          @endforeach
+        </tbody>
+    </table>
+  </div>
 </x-app-layout>

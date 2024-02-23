@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UpdatesController;
+use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,11 +32,13 @@ Route::middleware('auth')->group(function () {
 Route::group([
     'prefix' => 'v1',
 ], static function (): void {
-    Route::controller(UpdatesController::class)
+    Route::controller(UpdateController::class)
         ->middleware('auth')
         ->group(static function (): void {
+            Route::get('/users', 'index')->name('user');
             Route::get('http-pool', 'httpPool');
-            Route::get('where-integer-in-row', 'useWhereIntegerInRaw')->name('user');
+            Route::get('where-integer-in-row', 'useWhereIntegerInRaw');
+            Route::get('chunkbyid', 'useChunkById');
         });
 });
 
