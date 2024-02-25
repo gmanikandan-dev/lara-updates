@@ -84,7 +84,7 @@ class UpdateController extends Controller
          */
         $users = User::select('name', 'email', 'created_at', 'updated_at')
             // ->find(range(1, 5000));
-                ->get();
+            ->get();
 
         return view('user.index', compact('users'));
     }
