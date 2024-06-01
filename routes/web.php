@@ -42,4 +42,25 @@ Route::group([
         });
 });
 
+Route::get('/test-bindings', function () {
+    $bindService1 = app('App\Services\BindService');
+    $bindService2 = app('App\Services\BindService');
+
+    $singletonService1 = app('App\Services\SingletonService');
+    $singletonService2 = app('App\Services\SingletonService');
+
+    $scopedService1 = app('App\Services\ScopedService');
+    $scopedService2 = app('App\Services\ScopedService');
+
+    $instanceService1 = app('App\Services\InstanceService');
+    $instanceService2 = app('App\Services\InstanceService');
+
+    return response()->json([
+        'bind' => [$bindService1->getId(), $bindService2->getId()],
+        'singleton' => [$singletonService1->getId(), $singletonService2->getId()],
+        'scoped' => [$scopedService1->getId(), $scopedService2->getId()],
+        'instance' => [$instanceService1->getId(), $instanceService2->getId()],
+    ]);
+});
+
 require __DIR__.'/auth.php';
