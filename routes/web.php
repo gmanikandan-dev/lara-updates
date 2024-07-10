@@ -1,8 +1,12 @@
 <?php
 
+use App\Classes\Firewall;
+use App\Classes\ReportAnalyzer;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +44,31 @@ Route::group([
             Route::get('where-integer-in-row', 'useWhereIntegerInRaw');
             Route::get('chunkbyid', 'useChunkById');
         });
+});
+
+Route::get('/test-bindings', function () {
+    dd(app(Firewall::class));
+    // dd(app(ReportAnalyzer::class));
+    // $photoController = app(PhotoController::class);
+    // dd($photoController->capture());
+    $bindService1 = app('App\Services\BindService');
+    $bindService2 = app('App\Services\BindService');
+
+    $singletonService1 = app('App\Services\SingletonService');
+    $singletonService2 = app('App\Services\SingletonService');
+
+    $scopedService1 = app('App\Services\ScopedService');
+    $scopedService2 = app('App\Services\ScopedService');
+
+    $instanceService1 = app('App\Services\InstanceService');
+    $instanceService2 = app('App\Services\InstanceService');
+
+    return response()->json([
+        'bind' => [$bindService1->getId(), $bindService2->getId()],
+        'singleton' => [$singletonService1->getId(), $singletonService2->getId()],
+        'scoped' => [$scopedService1->getId(), $scopedService2->getId()],
+        'instance' => [$instanceService1->getId(), $instanceService2->getId()],
+    ]);
 });
 
 require __DIR__.'/auth.php';
