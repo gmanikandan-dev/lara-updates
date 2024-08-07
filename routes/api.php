@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('test', function(Request $request) {
     $requestData = $request->post();
-    $updatedData = $request->merge(['user_id' => 5]);
-    dd($requestData, $updatedData->user_id);
+    $request->merge(['user_id' => 5]);
+    $updatedData = $request->post();
+    dd($requestData, $updatedData);
 });
