@@ -12,7 +12,8 @@ class SendWelcomeEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $tries = 3; // the workers retries the job for 3 times before considering it as failures. 
+    public $tries = -1; // the workers retries the job for unlimited no. of times
+
     /**
      * Create a new job instance.
      */
@@ -31,5 +32,10 @@ class SendWelcomeEmail implements ShouldQueue
         sleep(3);
 
         info('Success');
+    }
+
+
+    public function retryUntil() {
+        return now()->addMinute();
     }
 }
