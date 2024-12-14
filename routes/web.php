@@ -5,6 +5,7 @@ use App\Classes\ReportAnalyzer;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UpdateController;
+use App\Jobs\ProcessPayment;
 use App\Jobs\SendWelcomeEmail;
 use Illuminate\Support\Facades\Route;
 
@@ -72,7 +73,16 @@ Route::get('/test-bindings', function () {
 });
 
 Route::get('job', function () {
-    SendWelcomeEmail::dispatch();
+
+    /* 100 welcome email will dispatch
+    *  learn: you many use multiple worker by splitting tab and run queue:work
+    */
+    foreach (range(1, 100) as $i) {
+        SendWelcomeEmail::dispatch();
+    }
+
+    /* learn: php artisan queue:work --queue=payment,default */
+    ProcessPayment::dispatch()->onQueue('payment');
 
     return 'success';
 });
