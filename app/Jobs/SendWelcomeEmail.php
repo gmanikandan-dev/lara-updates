@@ -12,6 +12,7 @@ class SendWelcomeEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $timeout = 1; // if our app stucks, when communicate with thrid party app
     /**
      * Create a new job instance.
      */
