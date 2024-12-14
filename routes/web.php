@@ -5,8 +5,8 @@ use App\Classes\ReportAnalyzer;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UpdateController;
+use App\Jobs\SendWelcomeEmail;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +69,12 @@ Route::get('/test-bindings', function () {
         'scoped' => [$scopedService1->getId(), $scopedService2->getId()],
         'instance' => [$instanceService1->getId(), $instanceService2->getId()],
     ]);
+});
+
+Route::get('job', function () {
+    SendWelcomeEmail::dispatch();
+
+    return 'success';
 });
 
 require __DIR__.'/auth.php';
