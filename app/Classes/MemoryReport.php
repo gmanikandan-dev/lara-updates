@@ -1,8 +1,5 @@
 <?php
- 
+
 namespace App\Classes;
 
-
-class MemoryReport {
-
-}
+class MemoryReport {}

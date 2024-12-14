@@ -13,9 +13,7 @@ use App\Http\Controllers\PhotoController;
 use App\Interfaces\Camera;
 use App\Interfaces\Filter;
 use App\Services\MyService;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,18 +24,18 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('App\Services\BindService', function ($app) {
-            return new MyService();
+            return new MyService;
         });
 
         $this->app->singleton('App\Services\SingletonService', function ($app) {
-            return new MyService();
+            return new MyService;
         });
 
         $this->app->scoped('App\Services\ScopedService', function ($app) {
-            return new MyService();
+            return new MyService;
         });
 
-        $myServiceInstance = new MyService();
+        $myServiceInstance = new MyService;
         $this->app->instance('App\Services\InstanceService', $myServiceInstance);
 
         /* binding primitives */
@@ -46,13 +44,13 @@ class AppServiceProvider extends ServiceProvider
             ->give(OppoMobile::class);
 
         $this->app->when(Firewall::class)
-          ->needs(Filter::class)
-          ->give(function ($app) {
+            ->needs(Filter::class)
+            ->give(function ($app) {
                 return [
                     $app->make(SizeFilter::class),
                     $app->make(ColorFilter::class),
                 ];
-          });
+            });
 
         /* binding tagged */
         $this->app->tag([CpuReport::class, MemoryReport::class], 'reports');

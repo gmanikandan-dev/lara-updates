@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('test', function(Request $request) {
+Route::post('test', function (Request $request) {
     $requestData = $request->post();
     $request->merge(['user_id' => 5]);
     $updatedData = $request->post();

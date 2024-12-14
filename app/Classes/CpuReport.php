@@ -1,8 +1,5 @@
 <?php
- 
+
 namespace App\Classes;
 
-
-class CpuReport{
-
-}
+class CpuReport {}
