@@ -12,7 +12,7 @@ class SendWelcomeEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $timeout = 1; // if our app stucks, when communicate with thrid party app
+    public $tries = 3; // the workers retries the job for 3 times before considering it as failures. 
     /**
      * Create a new job instance.
      */
@@ -26,6 +26,8 @@ class SendWelcomeEmail implements ShouldQueue
      */
     public function handle(): void
     {
+        throw new \Exception("Failed!");
+
         sleep(3);
 
         info('Success');
