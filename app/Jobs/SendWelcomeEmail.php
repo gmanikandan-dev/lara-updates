@@ -14,6 +14,7 @@ class SendWelcomeEmail implements ShouldQueue
 
     public $tries = -1; // the workers retries the job for unlimited no. of times
 
+    public $backoff = 2; // it takes 2 sec for each retries.
     /**
      * Create a new job instance.
      */
