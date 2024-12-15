@@ -12,6 +12,10 @@ class SendWelcomeEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $tries = 10;
+
+    public $backoff = [2, 10, 20]; /* 2sec after the first failure, 10sec after the second failure, 20sec after the third & future failure*/
+
     /**
      * Create a new job instance.
      */
@@ -25,7 +29,8 @@ class SendWelcomeEmail implements ShouldQueue
      */
     public function handle(): void
     {
-        sleep(3);
+        throw new \Exception('Error');
+        sleep(1);
 
         info('Success');
     }

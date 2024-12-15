@@ -87,4 +87,10 @@ Route::get('job', function () {
     return 'success';
 });
 
+Route::get('queue', function () {
+    SendWelcomeEmail::dispatch();
+
+    return 'success';
+});
+
 require __DIR__.'/auth.php';
