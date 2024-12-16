@@ -93,4 +93,10 @@ Route::get('queue', function () {
     return 'success';
 });
 
+Route::get('encrypt', function () {
+    ProcessPayment::dispatch('Mani');
+
+    return 'success';
+});
+
 require __DIR__.'/auth.php';
